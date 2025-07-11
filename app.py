@@ -155,20 +155,20 @@ if summarization_type == 'URL':
                     st.error(f"⚠️ Error: {e}")
 
 # ==== PDF Summarizer ====
+# ==== PDF Summarizer ====
 elif summarization_type == 'PDF':
     st.subheader("Summarize PDF Document")
     uploaded_file = st.file_uploader("Choose a PDF file", type=["pdf"])
-    ln=st.text_input("Enter the language")
+    ln = st.text_input("Enter the language")
+
     if st.button("Summarize"):
         if not uploaded_file:
             st.error("Please upload a PDF")
         elif not ln:
             st.error("Please write language")
-
         else:
             with st.spinner("⏳ Processing PDF..."):
                 try:
-                    
                     docs = load_pdf_from_memory(uploaded_file)
 
                     final_documents = RecursiveCharacterTextSplitter(
@@ -184,12 +184,11 @@ elif summarization_type == 'PDF':
                         combine_prompt=combine_prompt_template
                     )
 
-                   response = summary_chain.invoke({
+                    response = summary_chain.invoke({
                         "input_documents": final_documents,
                         "text": final_documents[0].page_content,
                         "ln": ln
                     })
-
 
                     # Show result
                     st.markdown("### 📄 Summary")
@@ -207,3 +206,5 @@ elif summarization_type == 'PDF':
 
                 except Exception as e:
                     st.error(f"⚠️ Error: {e}")
+
+
