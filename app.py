@@ -94,7 +94,7 @@ def get_llm(model_choice):
         return ChatGroq(model="gemma2-9b-it", api_key=GROQ_API_KEY)
     elif model_choice == "HuggingFace":
         return HuggingFaceEndpoint(
-            repo_id="mistralai/Mistral-7B-Instruct-v0.2",
+            repo_id="tiiuae/falcon-7b-instruct",
             temperature=1,
             huggingfacehub_api_token= HF_TOKEN
         )
