@@ -11,3 +11,4 @@ fpdf
 pdfplumber
 huggingface_hub
 youtube-transcript-api
+transformers
