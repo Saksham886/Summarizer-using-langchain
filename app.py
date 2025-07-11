@@ -130,7 +130,7 @@ if summarization_type == 'URL':
                         chain_type="stuff",
                         prompt=basic_prompt_template
                     )
-                    response = chain.run(documents,ln)
+                    response = chain.invoke(documents,ln)
 
                     # Show result
                     st.markdown("### 📄 Summary")
