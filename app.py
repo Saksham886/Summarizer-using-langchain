@@ -57,7 +57,13 @@ def load_pdf_from_memory(file):
 # ==== Prompt Templates ====
 basic_prompt_template = PromptTemplate(
     input_variables=["text","ln"],
-    template="You are a helpful assistant. Provide a short 300-word summary of the text:\n\n{text}in {ln} language"
+    template="""
+You are a helpful assistant. Your job is to summarize the following content in {ln} language.
+Please ensure the summary is clear, concise, and approximately 300 words.
+
+Content:
+{text}
+"""
 )
 
 map_prompt_template = PromptTemplate(
