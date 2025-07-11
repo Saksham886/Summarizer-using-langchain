@@ -38,12 +38,15 @@ if not os.path.exists("/home/appuser/.cache/ms-playwright"):
 
 # ==== PDF Generator ====
 def create_pdf(summary_text):
-    pdf = FPDF()
-    pdf.add_page()
-    pdf.set_font("Arial", size=12)
-    for line in summary_text.split('\n'):
-        pdf.multi_cell(0, 10, line)
-    return pdf.output(dest='S').encode('latin1')
+    try:
+        pdf = FPDF()
+        pdf.add_page()
+        pdf.set_font("Arial", size=12)
+        for line in summary_text.split('\n'):
+            pdf.multi_cell(0, 10, line)
+        return pdf.output(dest='S').encode('latin1')
+    except UnicodeEncodeError:
+        return None
 def load_pdf_from_memory(file):
     """Reads PDF file from memory and returns LangChain Document list."""
     docs = []
@@ -135,12 +138,15 @@ if summarization_type == 'URL':
                     # PDF Download
                     pdf_data = create_pdf(response["output_text"])
                     filename_pdf = f"summary_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf"
-                    st.download_button(
-                        label="📥 Download Summary as PDF",
-                        data=pdf_data,
-                        file_name=filename_pdf,
-                        mime="application/pdf"
-                    )
+                    if pdf_data:
+                        st.download_button(
+                            label="📥 Download Summary as PDF",
+                            data=pdf_data,
+                            file_name=filename_pdf,
+                            mime="application/pdf"
+                        )
+                    else:
+                        st.warning("⚠️ Download is not available in this language due to font limitations.")
 
                 except Exception as e:
                     st.error(f"⚠️ Error: {e}")
@@ -188,12 +194,16 @@ elif summarization_type == 'PDF':
                     # PDF Download
                     pdf_data = create_pdf(response["output_text"])
                     filename_pdf = f"summary_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf"
-                    st.download_button(
-                        label="📥 Download Summary as PDF",
-                        data=pdf_data,
-                        file_name=filename_pdf,
-                        mime="application/pdf"
-                    )
+                    if pdf_data:
+                        st.download_button(
+                            label="📥 Download Summary as PDF",
+                            data=pdf_data,
+                            file_name=filename_pdf,
+                            mime="application/pdf"
+                        )
+                    else:
+                        st.warning("⚠️ Download is not available in this language due to font limitations.")
+
 
                 except Exception as e:
                     st.error(f"⚠️ Error: {e}")
