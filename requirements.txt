@@ -1,0 +1,11 @@
+streamlit
+langchain
+langchain-community
+langchain-groq
+langchain-huggingface
+python-dotenv
+validators
+playwright
+unstructured
+fpdf
+pdfplumber
