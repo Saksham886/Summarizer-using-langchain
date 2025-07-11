@@ -139,10 +139,9 @@ if summarization_type == 'URL':
 
                     # Show result
                     st.markdown("### 📄 Summary")
-                    st.success(response)
-
+                    st.success(response["output_text"])
                     # PDF Download
-                    pdf_data = create_pdf(response)
+                    pdf_data = create_pdf(response["output_text"])
                     filename_pdf = f"summary_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf"
                     st.download_button(
                         label="📥 Download Summary as PDF",
@@ -192,10 +191,10 @@ elif summarization_type == 'PDF':
 
                     # Show result
                     st.markdown("### 📄 Summary")
-                    st.success(response)
+                    st.success(response["output_text"])
 
                     # PDF Download
-                    pdf_data = create_pdf(response)
+                    pdf_data = create_pdf(response["output_text"])
                     filename_pdf = f"summary_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf"
                     st.download_button(
                         label="📥 Download Summary as PDF",
