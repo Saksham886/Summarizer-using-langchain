@@ -86,23 +86,9 @@ st.title("📚 Langchain Summarizer")
 with st.sidebar:
     st.header("🔧 Configuration")
     summarization_type = st.selectbox('What do you want to summarize?', ('URL', 'PDF'))
-    model_choice = st.selectbox("Choose Model", ("Groq", "HuggingFace"))
 
-# ==== Select LLM ====
-def get_llm(model_choice):
-    if model_choice == "Groq":
-        return ChatGroq(model="gemma2-9b-it", api_key=GROQ_API_KEY)
-    elif model_choice == "HuggingFace":
-        return HuggingFaceEndpoint(
-            repo_id="tiiuae/falcon-7b-instruct",
-            temperature=1,
-            huggingfacehub_api_token= HF_TOKEN
-        )
-    else:
-        st.error("❌ Invalid model choice")
-        return None
 
-llm = get_llm(model_choice)
+llm = ChatGroq(model="gemma2-9b-it", api_key=GROQ_API_KEY)
 
 
 # ==== URL Summarizer ====
