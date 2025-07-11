@@ -96,7 +96,7 @@ def get_llm(model_choice):
         return HuggingFaceEndpoint(
             repo_id="mistralai/Mistral-7B-Instruct-v0.2",
             temperature=1,
-            model_kwargs={"token": HF_TOKEN}
+            huggingfacehub_api_token= HF_TOKEN
         )
     else:
         st.error("❌ Invalid model choice")
