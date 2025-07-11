@@ -130,7 +130,12 @@ if summarization_type == 'URL':
                         chain_type="stuff",
                         prompt=basic_prompt_template
                     )
-                    response = chain.invoke(documents,ln)
+                    response = chain.invoke({
+                        "input_documents": documents,
+                        "text": documents[0].page_content,
+                        "ln": ln
+                    })
+
 
                     # Show result
                     st.markdown("### 📄 Summary")
@@ -179,7 +184,12 @@ elif summarization_type == 'PDF':
                         combine_prompt=combine_prompt_template
                     )
 
-                    response = summary_chain.invoke(final_documents,ln)
+                   response = summary_chain.invoke({
+                        "input_documents": final_documents,
+                        "text": final_documents[0].page_content,
+                        "ln": ln
+                    })
+
 
                     # Show result
                     st.markdown("### 📄 Summary")
