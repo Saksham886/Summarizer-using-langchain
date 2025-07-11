@@ -9,3 +9,4 @@ playwright
 unstructured
 fpdf
 pdfplumber
+huggingface_hub
